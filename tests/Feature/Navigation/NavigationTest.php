@@ -33,7 +33,7 @@ class NavigationTest extends TestCase
 
 
      /** @test */
-     public function only_admin_can_see_navitaion_actions(){
+     public function only_admin_can_see_navigation_actions(){
         $user = User::factory()->create();
 
         Livewire::actingAs($user)->test(Navigation::class)
@@ -42,5 +42,44 @@ class NavigationTest extends TestCase
             ->assertSee(__('New'));
     }
 
+  /** @test */
+  public function guests_cannot_see_navigation_actions()
+  {
+      /*Livewire::test(Navigation::class)
+          ->assertStatus(200)
+          ->assertDontSee(__('Edit'))
+          ->assertDontSee(__('New'));
 
+      $this->assertGuest();*/
+  }
+
+
+    /** @test */
+    public function admin_can_edit_items()
+    {
+        $user = User::factory()->create();
+
+        $items = Navitem::factory(2)->create();
+
+        Livewire::actingAs($user)->test(Navigation::class)
+                ->set('items.0.label', 'My Projects')
+                ->set('items.0.link', '#myprojects')
+                ->set('items.1.label', 'Contact Me')
+                ->set('items.1.link', '#contact-me')
+                ->call('edit');
+
+        $this->assertDatabaseHas('navitems', ['id' => $items->first()->id, 'label' => 'My Projects', 'link' => '#myprojects']);
+        $this->assertDatabaseHas('navitems', ['id' => $items->last()->id, 'label' => 'Contact Me', 'link' => '#contact-me']);
+    }
+
+
+    public function admin_can_delete_an_item()
+    {
+        $user = User::factory()->create();
+        $item = Navitem::factory()->create();
+
+        Livewire::actingAs($user)->test(Navigation::class)->call('deleteItem', $item);
+
+        $this->assertDatabaseMissing( 'navitems', ['id' => $item->id]);
+    }
 }
