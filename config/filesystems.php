@@ -62,7 +62,7 @@ return [
 
         'cv' => [
             'driver' => 'local',
-            'root' => storage_path('app/portfolio'),
+            'root' => storage_path('app/cv'),
             'url' => env('APP_URL').'/cv',
             'visibility' => 'public',
             'throw' => false,

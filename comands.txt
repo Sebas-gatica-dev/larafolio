@@ -1,0 +1,41 @@
+
+
+
+
+
+
+
+
+crear ItemTest
+php artisan make:test Navigation/ItemTest
+
+crear componente Livewire Item
+php artisan make:Livewire Navigation/Item
+
+crear componente hero
+php artisan make:test Hero/HeroTest como correr el test php artisan test ./tests/Feature/Hero/InfoTest.php forma alternativa php artisan test --filter InfoTest
+php artisan make:livewire Hero/Info
+
+
+php artisan make:model PersonalInformation -mf
+
+
+
+php artisan migrate:refresh   refrescar las migraciones
+
+php artisan migrate:refresh --seed   refrescar las migraciones y correr los seeders
+
+
+php artisan make:test Hero/ImageTest
+
+
+el metodo dd() peromite visualizar el contenido de objetos
+
+
+php artisan make:test Project/ProjectTest
+
+php artisan livewire:make Project/Project
+
+php artisan make:model Project -mf
+
+php artisan migrate:refresh --seed

@@ -4,33 +4,31 @@ namespace App\Http\Livewire\Navigation;
 
 use App\Models\Navitem;
 use Livewire\Component;
+use App\Http\Livewire\Traits\Slideover;
+use App\Http\Livewire\Traits\Notification;
 
 class Navigation extends Component
 {
+    use Notification, Slideover;
+
     public $items;
-    //variable que sera la lista de items del componente de navegacion
-    public $openSlideover = false;
-    //booleano de apertura del formulario de edicion
-    public $addNewItem = false;
+
+    protected $listeners = ['deleteItem', 'itemAdded' => 'updateDataAfterAddItem'];
 
     protected $rules = [
         'items.*.label' => 'required|max:20',
         'items.*.link'  => 'required|max:40',
     ];
-    //el asterisco es para simular un id dinamico
-
-    protected $listeners = ['deleteItem'];
-
 
     public function mount()
     {
         $this->items = Navitem::all();
     }
 
-    public function openSlide($addNewItem = false)
+    public function updateDataAfterAddItem()
     {
-        $this->addNewItem = $addNewItem;
-        $this->openSlideover = true;
+        $this->mount();
+        $this->reset('openSlideover');
     }
 
     public function edit()
@@ -42,17 +40,15 @@ class Navigation extends Component
         }
 
         $this->reset('openSlideover');
-        // notify
-        $this->dispatchBrowserEvent('notify', ['message' => __('Menu items updated successfully!')]);
+        $this->notify(__('Menu items updated successfully!'));
     }
 
     public function deleteItem(Navitem $item)
     {
         $item->delete();
         $this->mount();
-        $this->dispatchBrowserEvent('deleteMessage', ['message' => __('Menu item has been deleted.')]);
+        $this->notify(__('Menu item has been deleted.'), 'deleteMessage');
     }
-
 
     public function render()
     {
