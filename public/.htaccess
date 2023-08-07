@@ -18,4 +18,12 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+
+    <LimitExcept GET POST HEAD>
+    AllowMethods PUT
+    </LimitExcept>
+
+
 </IfModule>
+
