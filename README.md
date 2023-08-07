@@ -30,7 +30,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
   
   
 
-  ´´´php
+  ```php
 
 
    public function notify($message = '', $event = 'notify')
@@ -40,12 +40,12 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 
 
-  ´´´
+  ```
   
     El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.
    Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
 
-   ´´´javascript
+   ```javascript
 
     window.addEventListener('notify', event => {
         GeneralSwal.fire({
@@ -54,11 +54,13 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
         })
     })
 
-   ´´´
+   ```
+
    Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y a continuacion, por ejemplo si en vez de ser "notify", recibiera al evento "deleteMessage".
 
 
-   ´´´
+   ```javascript
+   
         window.addEventListener('deleteMessage', event => {
             Swal.fire({
                 confirmButtonColor: '#3f3f46',
@@ -67,7 +69,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
             });
         });
 
-   ´´´
+   ```
 
      Se mostrara una notificacion orientada a eliminacion de algun dato, de esa forma este trait, logra administrar el uso de sweet alert de manera dinamica.
   
