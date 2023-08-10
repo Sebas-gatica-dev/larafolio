@@ -43,15 +43,15 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
   ```
 
-  
+ ```html
 
-    <div style="margin: 0.1rem 0.1rem;">
+   <div style="margin: 0.1rem 0.1rem;"> 
       El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.
       Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
 
     <div/>
 
-
+ ```
     
    ```javascript
 
@@ -61,11 +61,15 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
             title: event.detail.message
         })
     })
-
-   ```
+```
+   
+```html
+   <div style="margin: 0.1rem 0.1rem;"> 
 
    Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y a continuacion, por ejemplo si en vez de ser "notify", recibiera al evento "deleteMessage".
+   <div/> 
 
+```
 
    ```javascript
    
@@ -86,7 +90,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
   - ShowProjects: Esta diseñado para que los usuarios puedan ver más proyectos a medida que interactúan con la interfaz. El trait "ShowProjects" te permite implementar fácilmente esta funcionalidad en varios componentes Livewire sin tener que repetir el mismo código en cada uno de ellos.
 
        ## Varablesy Metodos
-
+ ```html
 <div style="margin-bottom: 10px;">
     <h3 style="margin: 0; font-size: 18px; color: #333;">$counter:</h3>
     <p style="margin: 0; color: #666;">Esta propiedad es un contador que determina cuántos proyectos se muestran actualmente en la lista. Por defecto, se inicializa con el valor 3, lo que significa que se mostrarán inicialmente 3 proyectos.</p>
@@ -107,7 +111,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
     <p style="margin: 0; color: #666;">Este método reinicia el contador "$counter" a 3, lo que vuelve a mostrar solo los primeros 3 proyectos en la lista. Esto se puede utilizar para retroceder a la visualización original después de que se han cargado más proyectos.</p>
 </div>
 
-
+ ```
 
   - Slideover:.
 
