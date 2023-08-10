@@ -42,11 +42,16 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 
   ```
+
+  
+
     <div style="margin: 0.1rem 0.1rem;">
       El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.
       Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
 
     <div/>
+
+
     
    ```javascript
 
