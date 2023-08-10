@@ -1,3 +1,4 @@
+<main>
 #Larafolio
 
   Este maravilloso porfolio, desarrollado en el paquete de laravel Breeze, esta construido utilizando la metodolia de trabajo TDD o Test Driven Development (desarrollo dirigido por pruebas) es una práctica de programación en la que se comienzan escribiendo las pruebas en primer lugar, escribiendo el código fuente a continuación, pasando correctamente la prueba y terminando con la refactorización del código escrito.
@@ -75,7 +76,31 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
   
   
 
-  - ShowProjects:.
+  - ShowProjects: Esta diseñado para que los usuarios puedan ver más proyectos a medida que interactúan con la interfaz. El trait "ShowProjects" te permite implementar fácilmente esta funcionalidad en varios componentes Livewire sin tener que repetir el mismo código en cada uno de ellos.
+
+       ## Varablesy Metodos
+
+<div style="margin-bottom: 10px;">
+    <h3 style="margin: 0; font-size: 18px; color: #333;">$counter:</h3>
+    <p style="margin: 0; color: #666;">Esta propiedad es un contador que determina cuántos proyectos se muestran actualmente en la lista. Por defecto, se inicializa con el valor 3, lo que significa que se mostrarán inicialmente 3 proyectos.</p>
+</div>
+
+<div style="margin-bottom: 10px;">
+    <h3 style="margin: 0; font-size: 18px; color: #333;">getTotalProperty():</h3>
+    <p style="margin: 0; color: #666;">Este método calcula y devuelve el total de proyectos en la base de datos utilizando el modelo "Project". Es una forma conveniente de obtener el número total de proyectos disponibles.</p>
+</div>
+
+<div style="margin-bottom: 10px;">
+    <h3 style="margin: 0; font-size: 18px; color: #333;">showMore():</h3>
+    <p style="margin: 0; color: #666;">Este método aumenta el valor de "$counter" en 3 si hay más proyectos disponibles para mostrar. Esto permite cargar y mostrar más proyectos en la lista cuando el usuario hace clic en un botón "Mostrar más".</p>
+</div>
+
+<div style="margin-bottom: 10px;">
+    <h3 style="margin: 0; font-size: 18px; color: #333;">showLess():</h3>
+    <p style="margin: 0; color: #666;">Este método reinicia el contador "$counter" a 3, lo que vuelve a mostrar solo los primeros 3 proyectos en la lista. Esto se puede utilizar para retroceder a la visualización original después de que se han cargado más proyectos.</p>
+</div>
+
+
 
   - Slideover:.
 
@@ -96,5 +121,5 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 
 
-
+<main />
 
