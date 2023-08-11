@@ -78,7 +78,7 @@ Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y 
 
   - ShowProjects: Esta diseñado para que los usuarios puedan ver más proyectos a medida que interactúan con la interfaz. El trait "ShowProjects" te permite implementar fácilmente esta funcionalidad en varios componentes Livewire sin tener que repetir el mismo código en cada uno de ellos.
 
-       ## Varablesy Metodos
+       **Varablesy Metodos**
 
 * $counter: Esta propiedad es un contador que determina cuántos proyectos se muestran actualmente en la lista. Por defecto, se inicializa con el valor 3, lo que significa que se mostrarán inicialmente 3 proyectos.
 
