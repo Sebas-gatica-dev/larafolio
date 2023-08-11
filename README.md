@@ -1,4 +1,4 @@
-<main>
+
 #Larafolio
 
   Este maravilloso porfolio, desarrollado en el paquete de laravel Breeze, esta construido utilizando la metodolia de trabajo TDD o Test Driven Development (desarrollo dirigido por pruebas) es una práctica de programación en la que se comienzan escribiendo las pruebas en primer lugar, escribiendo el código fuente a continuación, pasando correctamente la prueba y terminando con la refactorización del código escrito.
@@ -30,7 +30,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
   - Notification: el trait "Notification" contiene un método llamado "notify", que acepta dos parámetros opcionales: "$message" y "$event". El método "notify" utiliza la función "dispatchBrowserEvent" de Livewire para emitir un evento al navegador con el nombre proporcionado en "$event" (por defecto, el evento se llama "notify") y un arreglo asociativo que contiene el mensaje de la notificación.
   
   
-(
+
   ```php
 
 
@@ -42,7 +42,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 
   ```
-)
+
 
 
    <div style="margin: 0.1rem 0.1rem;"> 
@@ -52,7 +52,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
     <div/>
 
  
-   ( 
+   
    ```javascript
 
     window.addEventListener('notify', event => {
@@ -62,7 +62,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
         })
     })
     ```
-   )
+   
 
    <div style="margin: 0.1rem 0.1rem;"> 
 
@@ -70,8 +70,8 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
    <div/> 
 
 
-  ( 
-   ```javascript
+  
+    ```javascript
    
         window.addEventListener('deleteMessage', event => {
             Swal.fire({
@@ -81,8 +81,8 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
             });
         });
 
-   ```
-  )
+    ```
+  
 
      Se mostrara una notificacion orientada a eliminacion de algun dato, de esa forma este trait, logra administrar el uso de sweet alert de manera dinamica.
   
@@ -132,5 +132,4 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 
 
-<main />
 
