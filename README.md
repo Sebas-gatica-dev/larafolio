@@ -1,5 +1,5 @@
 
-#Larafolio
+# **Larafolio
 
   Este maravilloso porfolio, desarrollado en el paquete de laravel Breeze, esta construido utilizando la metodolia de trabajo TDD o Test Driven Development (desarrollo dirigido por pruebas) es una práctica de programación en la que se comienzan escribiendo las pruebas en primer lugar, escribiendo el código fuente a continuación, pasando correctamente la prueba y terminando con la refactorización del código escrito.
   Este proyecto fue desarrollado en laravel 10, aplicando tecnologias como livewire, alpinejs, tailwindcss.
@@ -27,7 +27,8 @@ Los traits en Laravel se utilizan principalmente para compartir comportamientos 
 
 En este porfolio, se utilizan una serie de traits, reautilizando la misma logica en varios de los componentes.
 
-  - Notification: el trait "Notification" contiene un método llamado "notify", que acepta dos parámetros opcionales: "$message" y "$event". El método "notify" utiliza la función "dispatchBrowserEvent" de Livewire para emitir un evento al navegador con el nombre proporcionado en "$event" (por defecto, el evento se llama "notify") y un arreglo asociativo que contiene el mensaje de la notificación.
+  ### Notification: 
+ El trait "Notification" contiene un método llamado "notify", que acepta dos parámetros opcionales: "$message" y "$event". El método "notify" utiliza la función "dispatchBrowserEvent" de Livewire para emitir un evento al navegador con el nombre proporcionado en "$event" (por defecto, el evento se llama "notify") y un arreglo asociativo que contiene el mensaje de la notificación.
   
   
 
@@ -76,9 +77,10 @@ Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y 
   
   
 
-  - ShowProjects: Esta diseñado para que los usuarios puedan ver más proyectos a medida que interactúan con la interfaz. El trait "ShowProjects" te permite implementar fácilmente esta funcionalidad en varios componentes Livewire sin tener que repetir el mismo código en cada uno de ellos.
+  ### ShowProjects:
+  Esta diseñado para que los usuarios puedan ver más proyectos a medida que interactúan con la interfaz. El trait "ShowProjects" te permite implementar fácilmente esta funcionalidad en varios componentes Livewire sin tener que repetir el mismo código en cada uno de ellos.
 
-       **Varables y Metodos:**
+  **Variables y Metodos**:
 
 * $counter: Esta propiedad es un contador que determina cuántos proyectos se muestran actualmente en la lista. Por defecto, se inicializa con el valor 3, lo que significa que se mostrarán inicialmente 3 proyectos.
 
