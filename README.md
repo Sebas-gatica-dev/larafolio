@@ -32,56 +32,47 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
   
 
   ```php
-
-
    public function notify($message = '', $event = 'notify')
     {
         $this->dispatchBrowserEvent($event, ['message' => $message]);
     }
-
-
-
   ```
 
 
 
-     >El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
+>El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
 
 
  
    
-   ```javascript
-
-    window.addEventListener('notify', event => {
+ ```javascript
+   window.addEventListener('notify', event => {
         GeneralSwal.fire({
             icon: 'success',
             title: event.detail.message
         })
     })
-    ```
+ ```
    
 
-   
-
-  >Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y a continuacion, por ejemplo si en vez de ser "notify", recibiera al evento "deleteMessage".
+  
+Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y a continuacion, por ejemplo si en vez de ser "notify", recibiera al evento"deleteMessage".
  
 
 
   
-    ```javascript
-   
-        window.addEventListener('deleteMessage', event => {
-            Swal.fire({
-                confirmButtonColor: '#3f3f46',
-                icon: 'success',
-                title: event.detail.message,
-            });
+ ```javascript
+    window.addEventListener('deleteMessage', event => {
+        Swal.fire({
+            confirmButtonColor: '#3f3f46',
+            icon: 'success',
+            title: event.detail.message,
         });
-
-    ```
+    });
+ ```
   
 
-     >Se mostrara una notificacion orientada a eliminacion de algun dato, de esa forma este trait, logra administrar el uso de sweet alert de manera dinamica.
+>Se mostrara una notificacion orientada a eliminacion de algun dato, de esa forma este trait, logra administrar el uso de sweet alert de manera dinamica.
   
   
 
@@ -89,25 +80,13 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
        ## Varablesy Metodos
 
-<div style="margin-bottom: 10px;">
-    <h3 style="margin: 0; font-size: 18px; color: #333;">$counter:</h3>
-    <p style="margin: 0; color: #666;">Esta propiedad es un contador que determina cuántos proyectos se muestran actualmente en la lista. Por defecto, se inicializa con el valor 3, lo que significa que se mostrarán inicialmente 3 proyectos.</p>
-</div>
+* $counter: Esta propiedad es un contador que determina cuántos proyectos se muestran actualmente en la lista. Por defecto, se inicializa con el valor 3, lo que significa que se mostrarán inicialmente 3 proyectos.
 
-<div style="margin-bottom: 10px;">
-    <h3 style="margin: 0; font-size: 18px; color: #333;">getTotalProperty():</h3>
-    <p style="margin: 0; color: #666;">Este método calcula y devuelve el total de proyectos en la base de datos utilizando el modelo "Project". Es una forma conveniente de obtener el número total de proyectos disponibles.</p>
-</div>
+* getTotalProperty(): Este método calcula y devuelve el total de proyectos en la base de datos utilizando el modelo "Project". Es una forma conveniente de obtener el número total de proyectos disponibles.
 
-<div style="margin-bottom: 10px;">
-    <h3 style="margin: 0; font-size: 18px; color: #333;">showMore():</h3>
-    <p style="margin: 0; color: #666;">Este método aumenta el valor de "$counter" en 3 si hay más proyectos disponibles para mostrar. Esto permite cargar y mostrar más proyectos en la lista cuando el usuario hace clic en un botón "Mostrar más".</p>
-</div>
+* showMore(): Este método aumenta el valor de "$counter" en 3 si hay más proyectos disponibles para mostrar. Esto permite cargar y mostrar más proyectos en la lista cuando el usuario hace clic en un botón "Mostrar más".
 
-<div style="margin-bottom: 10px;">
-    <h3 style="margin: 0; font-size: 18px; color: #333;">showLess():</h3>
-    <p style="margin: 0; color: #666;">Este método reinicia el contador "$counter" a 3, lo que vuelve a mostrar solo los primeros 3 proyectos en la lista. Esto se puede utilizar para retroceder a la visualización original después de que se han cargado más proyectos.</p>
-</div>
+* showLess(): Este método reinicia el contador "$counter" a 3, lo que vuelve a mostrar solo los primeros 3 proyectos en la lista. Esto se puede utilizar para retroceder a la visualización original después de que se han cargado más proyectos.
 
 
   - Slideover:.
