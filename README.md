@@ -45,11 +45,8 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 
 
-   <div style="margin: 0.1rem 0.1rem;"> 
-      El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.
-      Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
+     >El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
 
-    <div/>
 
  
    
@@ -64,10 +61,10 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
     ```
    
 
-   <div style="margin: 0.1rem 0.1rem;"> 
+   
 
-   Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y a continuacion, por ejemplo si en vez de ser "notify", recibiera al evento "deleteMessage".
-   <div/> 
+  >Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y a continuacion, por ejemplo si en vez de ser "notify", recibiera al evento "deleteMessage".
+ 
 
 
   
@@ -84,7 +81,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
     ```
   
 
-     Se mostrara una notificacion orientada a eliminacion de algun dato, de esa forma este trait, logra administrar el uso de sweet alert de manera dinamica.
+     >Se mostrara una notificacion orientada a eliminacion de algun dato, de esa forma este trait, logra administrar el uso de sweet alert de manera dinamica.
   
   
 
@@ -121,7 +118,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 ## Componentes base de la aplicacion
 
-   La aplicacion esta basada en una serie de componentes de livewire.
+   >La aplicacion esta basada en una serie de componentes de livewire.
 
 - Navigation:.
 - Hero.
