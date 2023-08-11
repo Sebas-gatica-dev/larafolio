@@ -1,5 +1,5 @@
 
-# **Larafolio
+# Larafolio
 
   Este maravilloso porfolio, desarrollado en el paquete de laravel Breeze, esta construido utilizando la metodolia de trabajo TDD o Test Driven Development (desarrollo dirigido por pruebas) es una práctica de programación en la que se comienzan escribiendo las pruebas en primer lugar, escribiendo el código fuente a continuación, pasando correctamente la prueba y terminando con la refactorización del código escrito.
   Este proyecto fue desarrollado en laravel 10, aplicando tecnologias como livewire, alpinejs, tailwindcss.
