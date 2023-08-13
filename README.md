@@ -1,23 +1,25 @@
 
 # Larafolio
 
->Este maravilloso porfolio, desarrollado en el paquete de laravel Breeze, esta construido utilizando la metodologia de trabajo TDD o Test Driven Development (desarrollo dirigido por pruebas) es una práctica de programación en la que se comienzan escribiendo las pruebas en primer lugar, escribiendo el código fuente a continuación, pasando correctamente la prueba y terminando con la refactorización del código escrito.
-  Este proyecto fue desarrollado en laravel 10, aplicando tecnologias como livewire, alpinejs, tailwindcss.
+
+Al escribir este README, es mi intención dejar en evidencia mi profunda comprensión del curso <a target="_BLANK" href="https://www.udemy.com/course/crea-tu-portafolio-dinamico-con-laravel-livewire-y-tdd/https://www.udemy.com/course/crea-tu-portafolio-dinamico-con-laravel-livewire-y-tdd/">crea tu portafolio dinamico con laravel livewire y tdd<a/>, en verdad, fue muy positivo para mí..
+
+>Este maravilloso portafolio, desarrollado en el paquete de Laravel Breeze, está construido utilizando la metodología de trabajo TDD o Test Driven Development (desarrollo dirigido por pruebas). Es una práctica de programación en la que se comienzan escribiendo las pruebas en primer lugar, luego se escribe el código fuente, pasando correctamente la prueba y finalizando con la refactorización del código escrito. Este proyecto fue desarrollado en Laravel 10, aplicando tecnologías como Livewire, Alpine.js y Tailwind CSS.
  
 
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-## Caracteristicas principales
+## Características principales
 
-  Este proyecto posee funcionalidades de privilegio para el administrador, asegurando su capacidad de editar el contenido del porfolio de manera dinamica:
+Este proyecto posee funcionalidades de privilegio para el administrador, asegurando su capacidad de editar el contenido del portafolio de manera dinámica:
 
-- Login exclusivo para administrador.
-- Acceso para el administrador(luego de haberse logueado), a botones de accion, los cuales permiten desplegar formularios de manipulacionde informacion.
-- Entorno con dos bases de datos, una dedicada a la poduccion y otra exclusiva para el testing.
-- Formularios con los que el administrador podra editar, crear o eliminar secciones de la pagina.
-- Capacidad de que el visitante descargue el archivo pdf de mi curricullum.
+- Inicio de sesión exclusivo para el administrador.
+- Acceso para el administrador (luego de haber iniciado sesión) a botones de acción, los cuales permiten desplegar formularios de manipulación de información.
+- Entorno con dos bases de datos, una dedicada a la producción y otra exclusiva para pruebas.
+- Formularios con los que el administrador podrá editar, crear o eliminar secciones de la página.
+Capacidad para que el visitante descargue el archivo PDF de mi currículum.
 
 ## Traits
 
@@ -26,6 +28,7 @@
 Los traits en Laravel se utilizan principalmente para compartir comportamientos comunes entre varias clases. En lugar de extender una clase base para heredar sus métodos, podemos definir un trait que contiene esos métodos y luego incluir ese trait en las clases que necesiten esos comportamientos.
 
 En este porfolio, se utilizan una serie de traits, reautilizando la misma logica en varios de los componentes.
+
 
   ### Notification: 
  El trait "Notification" contiene un método llamado "notify", que acepta dos parámetros opcionales: "$message" y "$event". El método "notify" utiliza la función "dispatchBrowserEvent" de Livewire para emitir un evento al navegador con el nombre proporcionado en "$event" (por defecto, el evento se llama "notify") y un arreglo asociativo que contiene el mensaje de la notificación.
@@ -41,7 +44,8 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
 
 
 
->El evento que reciba como parametro el metodo notify, condiciona al tipo de alerta de SweetAlert que se mostrara.Dentro de resources\js\app.js se encuentran las escuchas del evento de SweetAlert:
+>El evento que reciba como parámetro el método "notify" condiciona al tipo de alerta de SweetAlert que se mostrará. Dentro de "resources\js\app.js" se encuentran las escuchas del evento de SweetAlert.
+
 
 
  
@@ -57,7 +61,7 @@ En este porfolio, se utilizan una serie de traits, reautilizando la misma logica
    
 
   
-Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y a continuacion, por ejemplo si en vez de ser "notify", recibiera al evento"deleteMessage".
+>Ese es el evento que se ejecuta con el valor por defecto del parámetro "$event", y a continuación, por ejemplo, si en vez de ser "notify", recibiera el evento "deleteMessage".
  
 
 
@@ -73,7 +77,7 @@ Ese es el evento que ejecuta con el valor por defecto del parametro "$event", y 
  ```
   
 
->Se mostrara una notificacion orientada a eliminacion de algun dato, de esa forma este trait, logra administrar el uso de sweet alert de manera dinamica.
+>Se mostrará una notificación orientada a la eliminación de algún dato. De esta forma, este trait logra administrar el uso de SweetAlert de manera dinámica.
   
   
 
@@ -341,23 +345,104 @@ class FooterLink extends Component
 > Aqui podemos ver que dentro del componente Navigation los metodos edit(), como el metodo deleteItem(), llaman a traves del metodo emiTo(), a este evento del componente FooterLink llamado 'itemsHasBeenUpdated', el cual no hace mas que eejeeturar el metodo render del componente, dentro del cual tan se instancia la variable $items, la cual permite reflejar loscambios en los enlaces, en el componente de footer. 
     
 * **Hero:**
- Hero es el nombre de  una seccion de mi porfolio,la cual esta dividida, es dos componenetes, Image y Info, abordare,conceptualmente a cada uno de ellos:
-    * Image: Este componente se encarga de mostrar la imagen de un héroe (imagen destacada) en la interfaz. Conceptualmente, su objetivo es cargar y mostrar una imagen asociada a la información personal almacenada en la base de datos. Los aspectos clave de este componente son:
+ Hero es el nombre de  una seccion de mi porfolio,la cual esta dividida, es dos componenetes, Image y Info, ambos aceden  la informacion de un moelo llamado PersonalInformation, el cual posee lo campos 'title', 'description', 'cv', 'image', 'email'. A continuacion abordare,conceptualmente a cada uno de los componentes:
+    * **Image**: Este componente se encarga de mostrar la imagen de un hero (imagen destacada) en la interfaz. Conceptualmente, su objetivo es cargar y mostrar una imagen asociada a la información personal almacenada en la base de datos. Los aspectos clave de este componente son:
       * Carga de imagen predeterminada: Si no se encuentra una imagen personalizada en la base de datos, el componente mostrará una imagen predeterminada llamada 'default-hero.jpg'.
       * Manejo de eventos: Escucha el evento 'heroImageUpdated', que es emitido por otro componente (posiblemente 'Info') cuando se actualiza la imagen del Hero. En respuesta a este evento, el componente recarga su imagen.
 
-  * Info: Este componente se encarga de la gestión de la información personal y la imagen del héroe. Conceptualmente, su función es permitir la edición de información personal, incluyendo título, descripción y un archivo de currículum (CV), así como la gestión de la imagen del héroe. Los aspectos clave de este componente son:
+ ```php
+     public int $counter = 3;
+  ```
+  
+  >Comment
+  
+   ```php
+     public int $counter = 3;
+  ```
+  
+  >Comment
+  
+  * **Info**:  Este componente se encarga de la gestión de la información personal y la imagen del héroe. Conceptualmente, su función es permitir la edición de información personal, incluyendo título, descripción y un archivo de currículum (CV), así como la gestión de la imagen del héroe. Los aspectos clave de este componente son:
 
-    * Edición y validación: Permite la edición de la información personal (título y descripción) y realiza validaciones para asegurarse de que los datos ingresados sean válidos.
-    * Subida de archivos: Utiliza el trait WithFileUploads para permitir la subida de archivos, tanto el CV como la imagen del héroe. Realiza validaciones en los formatos y tamaños de los archivos.
-    * Actualización de información: Al realizar la edición y actualización, el componente se encarga de manejar la subida de nuevos archivos (CV e imagen del héroe) y de eliminar los archivos anteriores si se reemplazan con nuevos archivos.
-    * Comunicación con el componente Image: Después de actualizar la imagen del héroe, emite el evento 'heroImageUpdated', que es escuchado por el componente 'Image', asegurando que la nueva imagen se muestre correctamente en la interfaz.
- 
+* Edición y validación: Permite la edición de la información personal
+    (título y descripción) y realiza validaciones para asegurarse de que los datos ingresados sean válidos.
+    
+    
+  ```php
+     public int $counter = 3;
+  ```
+>Coment
+
+ * Subida de archivos: Utiliza el trait WithFileUploads para permitir la subida de archivos, tanto el CV como la imagen del héroe. Realiza validaciones en los formatos y tamaños de los archivos.
+    
+    
+ ```php
+     public int $counter = 3;
+  ```
+>Coment
+   
+   * Actualización de información: Al realizar la edición y actualización, el componente se encarga de manejar la subida de nuevos archivos (CV e imagen del héroe) y de eliminar los archivos anteriores si se reemplazan con nuevos archivos.
+    
+ ```php
+     public int $counter = 3;
+ ```
+  
+>Comment
+  
+* Comunicación con el componente Image: Después de actualizar la imagen del héroe, emite el evento 'heroImageUpdated', que es escuchado por el componente 'Image', asegurando que la nueva imagen se muestre correctamente en la interfaz.
+  ```php
+     public int $counter = 3;
+  ```
+  
+  
+>Comment
+
+  Algo muy importante que acotar es que una de las configurraciones necesarias para la manipulaciond e archivos en laravel se realiza en la carpeta config, se encuentra el archivo filesystems.php, el cual contiene entre s codgo un array llamado disks:
+  
+   ```php
+     'hero' => [
+            'driver' => 'local',
+            'root' => storage_path('app/img/hero'),
+            'url' => env('APP_URL').'/hero',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'projects' => [
+            'driver' => 'local',
+            'root' => storage_path('app/img/projects'),
+            'url' => env('APP_URL').'/projects',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'cv' => [
+            'driver' => 'local',
+            'root' => storage_path('app/cv'),
+            'url' => env('APP_URL').'/cv',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+  
+  ```
+  >Dentro de ese array agregue stos elementos entre otros(no muestro el array entero ya que es largo), definiendo la configuracion de las ubicacion de los archivos en cada caso de uso.A su vez, al final de archivo defino las URLs publicas para acceder a estos discos
+  
+   ```php
+    
+    'links' => [
+        public_path('hero') => storage_path('app/img/hero'),
+        public_path('projects') => storage_path('app/img/projects'),
+        public_path('cv') => storage_path('app/cv'),
 
 
+    ],
+
+  ```
+>De esta forma puedo lograr que efectivamente la ruta de mis archivos sea funcional.
+  
 * **Projects:**
-  La secccion Projects esta constituida por un componenete livewire principal, complementado por algunos componenetes de blade. 
- Este componenete es Project, tiene un propósito específico dentro de la aplicación: gestionar la información relacionada con los proyectos. Conceptualmente, este componente se encarga de crear, editar, eliminar y mostrar proyectos, incluyendo detalles como el nombre del proyecto, descripción, imágenes, enlaces a videos, URLs y enlaces a repositorios. A continuación, desglosaré las características y responsabilidades clave de este componente: 
+  La secccion Projects esta constituida por un componenete livewire principal, complementado por algunos componentes de blade. 
+ Este componente Project, tiene un propósito específico dentro de la aplicación: gestionar la información relacionada con los proyectos. Conceptualmente, este componente se encarga de crear, editar, eliminar y mostrar proyectos, incluyendo detalles como el nombre del proyecto, descripción, imágenes, enlaces a videos, URLs y enlaces a repositorios. A continuación, desglosaré las características y responsabilidades clave de este componente: 
     * Gestión de proyectos: El componente permite la gestión completa de proyectos, incluyendo la creación de nuevos proyectos, edición de proyectos existentes y eliminación de proyectos. Esto se hace a través de métodos como create(), save(), deleteProject() y loadProject().
 
   * Validación de datos: Se aplica una serie de reglas de validación definidas en la propiedad $rules para asegurar que los datos ingresados para cada proyecto sean válidos antes de guardarlos. Esto garantiza que los datos cumplan con ciertos criterios (longitud, formatos, etc.).
@@ -403,7 +488,11 @@ En conjunto, estos componentes trabajan juntos para proporcionar una sección de
 
 ## Acerca del testing 
 
-   >El testing de este proyecto esta orientado mas a los tenting de "Features", de hecho en esta version del proyecto(quizas en version futuras mas perfeccionadas sea diferente) no hay incorporados test unitarios, es decir, el testing va mas orientado, a comprobar si tal compoentes efectivamente se renderiza en pantalla, o si hay cierta informacion en el base de datos, caracteristicas orientadas a los permisos de administrador, resrecto al acceso a la interfaz de edicion de la aplicacion.
+   >El testing de este proyecto esta orientado mas a los tenting de "Features", de hecho en esta version del proyecto(quizas en version futuras mas perfeccionadas sea diferente) no hay incorporados test unitarios, es decir, el testing va mas orientado, a comprobar si tal compoentes efectivamente se renderiza en pantalla, o si hay cierta informacion en el base de datos, caracteristicas orientadas a los permisos de administrador, respecto al acceso a la interfaz de edición de la aplicacion.
+     A continacion analizaremos lo test principales, y nos centraremos en explicar algunos de los asserts dee los que disponemos en laravel para los tests.
+     
+     
+   
    
 
 
