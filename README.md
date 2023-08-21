@@ -342,7 +342,7 @@ class FooterLink extends Component
 
 
 ```
-> Aqui podemos ver que dentro del componente Navigation los metodos edit(), como el metodo deleteItem(), llaman a traves del metodo emiTo(), a este evento del componente FooterLink llamado 'itemsHasBeenUpdated', el cual no hace mas que eejeeturar el metodo render del componente, dentro del cual tan se instancia la variable $items, la cual permite reflejar loscambios en los enlaces, en el componente de footer. 
+> Aqui podemos ver que dentro del componente Navigation los metodos edit(), como el metodo deleteItem(), llaman a traves del metodo emiTo(), a este evento del componente FooterLink llamado 'itemsHasBeenUpdated', el cual no hace mas que ejecutar el metodo render del componente, dentro del cual tan se instancia la variable $items, la cual permite reflejar loscambios en los enlaces, en el componente de footer. 
     
 * **Hero:**
  Hero es el nombre de  una seccion de mi porfolio,la cual esta dividida, es dos componenetes, Image y Info, ambos aceden  la informacion de un moelo llamado PersonalInformation, el cual posee lo campos 'title', 'description', 'cv', 'image', 'email'. A continuacion abordare,conceptualmente a cada uno de los componentes:
@@ -351,51 +351,134 @@ class FooterLink extends Component
       * Manejo de eventos: Escucha el evento 'heroImageUpdated', que es emitido por otro componente (posiblemente 'Info') cuando se actualiza la imagen del Hero. En respuesta a este evento, el componente recarga su imagen.
 
  ```php
-     public int $counter = 3;
+     class PersonalInformation extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['title', 'description', 'cv', 'image', 'email'];
+
+    protected function cvUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Storage::disk('cv')->url($this->cv ?? 'cv.pdf'),
+        );
+    }
+
+    protected function imageUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Storage::disk('hero')->url($this->image ?? 'default-hero.jpg'),
+        );
+    }
+}
+
   ```
   
-  >Comment
+  >Tanto Image como Info, utilizan el modelo PersonalInformation, donde la asignacion masiva($fillable) esta habilitada para todas las columnas de la tabla, y se instancian dos Attributes, si quisiera acceder a las propiedades cvUrl o imageUrl en una instancia del modelo PersonalInformation, las funciones anónimas dentro de estas funciones se ejecutarán automáticamente, generando las URLs correspondientes para los archivos almacenados en los discos especificados, por ejemplo, si tienes una instancia de PersonalInformation llamada $personalInfo, puedes acceder a las URLs de CV e imagen de la siguiente manera:
   
    ```php
-     public int $counter = 3;
+  $cvUrl = $personalInfo->cvUrl; // La función cvUrl() se ejecutará automáticamente
+  
+  $imageUrl = $personalInfo->imageUrl; // La función imageUrl() se ejecutará automáticamente
+
   ```
   
-  >Comment
+  >Sin embargo dentro del componente iImage se establece este variable de la sigueinte forma, en el hook mount:
   
-  * **Info**:  Este componente se encarga de la gestión de la información personal y la imagen del héroe. Conceptualmente, su función es permitir la edición de información personal, incluyendo título, descripción y un archivo de currículum (CV), así como la gestión de la imagen del héroe. Los aspectos clave de este componente son:
+   ```php
+       public function mount()
+    {
+        $info = PersonalInformation::select('image')->first();
 
-* Edición y validación: Permite la edición de la información personal
-    (título y descripción) y realiza validaciones para asegurarse de que los datos ingresados sean válidos.
+        if (!is_null($info) && !is_null($info->image)) {
+            $this->image = $info->image;
+        }
+    }
+ ```
+ 
+ >Instanciando la variable  $info, se  establece la url temporal  a la imagen, la imaen por defecto ya estaba instanciada en a varable $image, luego se hace una aueniticacion,  sobre si existe tal imagen en la vaible info, para asi saber si mostrar esa imagen, o al cotrario mostrar la que esta por defecto.
+  Veamos que sucede dentro del if:
+ !is_null($info): Esta condición verifica si $info no es nulo. is_null() es una función en PHP que verifica si una variable o expresión es nula. Al poner ! antes de is_null(), estamos negando la condición, lo que significa que estamos verificando si $info NO es nulo. Si $info no es nulo, entonces esta condición se cumple.
+!is_null($info->image): Similar al primer caso, esta condición verifica si la propiedad image del objeto $info no es nula. Al igual que antes, el ! niega la condición, por lo que estamos verificando si la propiedad image de $info NO es nula.
+Es decir si ambas propiedades son nulas, $this->image su valorpasara a ser lo que valga $info->image. 
+  
+```php
+      protected $listeners = ['heroImageUpdated' => 'mount'];
+ ```
+ 
+>El hook mount,  esta disponible a modo de evento,  y sera emitido desde el metodo edit(), del componente, Info.
+  
+  * **Info**:  Este componente se encarga de la gestión de la información personal. Conceptualmente, su función es permitir la edición de información personal, incluyendo título, descripción y un archivo de currículum (CV), sin embargo la gestión de la imagen del héro corresponde al componente Image(Me resulo mas practico desarrollarlo de esa manera). Los aspectos clave de este componente son:
+
+* Validación: Permite la edición de la información personal
+     y realiza validaciones para asegurarse de que los datos ingresados sean válidos.
     
     
   ```php
-     public int $counter = 3;
+     
+    protected $rules = [
+        'info.title' => 'required|max:80',
+        'info.description' => 'required|max:250',
+        'cvFile' => 'nullable|mimes:pdf|max:1024',
+        'imageFile' => 'nullable|image|max:1024',
+    ];
   ```
->Coment
+>Esos seran los parameros de validacion, la  cual  se ejecutara con el metodo validate().
+```php
+      public function updatedCvFile()
+    {
+        $this->validate([
+            'cvFile' => 'mimes:pdf|max:1024',
+        ]);
+    }
+  ```
 
  * Subida de archivos: Utiliza el trait WithFileUploads para permitir la subida de archivos, tanto el CV como la imagen del héroe. Realiza validaciones en los formatos y tamaños de los archivos.
     
     
- ```php
-     public int $counter = 3;
-  ```
->Coment
+
    
    * Actualización de información: Al realizar la edición y actualización, el componente se encarga de manejar la subida de nuevos archivos (CV e imagen del héroe) y de eliminar los archivos anteriores si se reemplazan con nuevos archivos.
     
  ```php
-     public int $counter = 3;
+ 
+  public function edit()
+    {
+        $this->validate();
+
+        $this->info->save();
+
+        if ($this->cvFile) {
+            $this->deleteFile(disk: 'cv', filename: $this->info->cv);
+            $this->info->update(['cv' => $this->cvFile->store('/', 'cv')]);
+        }
+
+        if ($this->imageFile) {
+            $this->deleteFile(disk: 'hero', filename: $this->info->image);
+            $this->info->update(['image' => $this->imageFile->store('/', 'hero')]);
+            $this->emitTo('hero.image', 'heroImageUpdated');
+        }
+
+        $this->resetExcept('info');
+        $this->notify(__('Information saved successfully!'));
+    }
  ```
   
->Comment
+>Valida la información del formulario utilizando las reglas de validación definidas en $rules.
+Guarda la información personal en la base de datos.
+Si se ha proporcionado un nuevo archivo de CV ($cvFile), elimina el archivo de CV existente (si lo hay) del disco "cv" y luego almacena el nuevo archivo en el mismo disco.
+Si se ha proporcionado una nueva imagen ($imageFile), elimina la imagen existente (si la hay) del disco "hero" y luego almacena la nueva imagen en el mismo disco. Además, emite un evento al componente hero.image para informar que la imagen del héroe ha sido actualizada.
+Restablece el componente a su estado inicial, manteniendo solo la propiedad $info (esto limpia los campos del formulario).
+Notifica al usuario que la información se ha guardado exitosamente.
   
 * Comunicación con el componente Image: Después de actualizar la imagen del héroe, emite el evento 'heroImageUpdated', que es escuchado por el componente 'Image', asegurando que la nueva imagen se muestre correctamente en la interfaz.
+
   ```php
-     public int $counter = 3;
+    $this->emitTo('hero.image', 'heroImageUpdated');
   ```
   
   
->Comment
+>Ese codigo emite el evento que vuelve a ejecutar el metodo mount del componente Image. 
 
   Algo muy importante que acotar es que una de las configurraciones necesarias para la manipulaciond e archivos en laravel se realiza en la carpeta config, se encuentra el archivo filesystems.php, el cual contiene entre s codgo un array llamado disks:
   
