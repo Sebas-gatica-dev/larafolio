@@ -527,34 +527,98 @@ Notifica al usuario que la información se ha guardado exitosamente.
   La secccion Projects esta constituida por un componenete livewire principal, complementado por algunos componentes de blade. 
  Este componente Project, tiene un propósito específico dentro de la aplicación: gestionar la información relacionada con los proyectos. Conceptualmente, este componente se encarga de crear, editar, eliminar y mostrar proyectos, incluyendo detalles como el nombre del proyecto, descripción, imágenes, enlaces a videos, URLs y enlaces a repositorios. A continuación, desglosaré las características y responsabilidades clave de este componente: 
     * Gestión de proyectos: El componente permite la gestión completa de proyectos, incluyendo la creación de nuevos proyectos, edición de proyectos existentes y eliminación de proyectos. Esto se hace a través de métodos como create(), save(), deleteProject() y loadProject().
-
+  
   * Validación de datos: Se aplica una serie de reglas de validación definidas en la propiedad $rules para asegurar que los datos ingresados para cada proyecto sean válidos antes de guardarlos. Esto garantiza que los datos cumplan con ciertos criterios (longitud, formatos, etc.).
-
+ 
   * Manejo de archivos: El componente utiliza el trait WithFileUploads para permitir la subida de imágenes relacionadas con cada proyecto. Las imágenes de los proyectos se almacenan en el sistema de archivos y se gestionan de acuerdo con las reglas definidas.
 
   * Notificaciones: Se utiliza el trait Notification para mostrar notificaciones al usuario en diferentes escenarios, como cuando se guarda un proyecto exitosamente o cuando se elimina un proyecto.
-
-  * Comunicación con otros componentes: El componente emite y escucha eventos. Por ejemplo, emite un evento 'deleteProject' cuando se elimina un proyecto, y escucha eventos externos (no se proporciona el detalle del componente externo aquí) como parte de la interacción con otros componentes.
-
    * Mostrar lista de proyectos: El componente también se encarga de cargar y mostrar una lista de proyectos. El método render() obtiene los proyectos desde la base de datos y los pasa a la vista para su renderización.
+   
+    ```php
+    
+        public function render()
+    {
+        $projects = ProjectModel::take($this->counter)->get();
+        return view('livewire..project.project', ['projects' => $projects]);
+    }
+    
+
+  ```
+  >La variable $projects traerá la cantidad de proyectos, que endra como valor la variable $counter, que por defecto vale 3, luego el trait ShowProject permite ver mas.
 
 
 
 * **Contact:**
-  La seccion Contact; esta constituida pordos componenetes de livewire, Contact, y SocialLink.
+  La seccion Contact; esta constituida por dos componenetes de livewire, Contact, y SocialLink.
    El componente Contact junto con su componente complementario SocialLink tienen la función de gestionar la sección de contacto en tu portafolio, incluyendo la información de contacto y los enlaces a tus redes sociales. Aquí está una explicación conceptual de cada componente:
    
-  * Contact.php: Este componente se encarga de manejar la información de contacto, especialmente el correo electrónico. Su objetivo es permitir la edición y actualización del correo electrónico de contacto que se muestra en tu portafolio. Aquí están sus características clave:
+  * Contact: Este componente se encarga de manejar la información de contacto, especialmente el correo electrónico. Su objetivo es permitir la edición y actualización del correo electrónico de contacto que se muestra en tu portafolio. Aquí están sus características clave:
 
   * Carga de información: El componente carga la información de contacto (incluyendo el correo electrónico) desde la base de datos. Si no existe ninguna información, crea una nueva instancia de la clase PersonalInformation.
+  ```php
+    
+       public function mount()
+    {
+        $this->contact = PersonalInformation::first() ?? new PersonalInformation();
+    }
+    
+
+  ```
+
   * Edición de correo electrónico: Permite al usuario editar el correo electrónico de contacto y aplica reglas de validación para asegurarse de que se proporcione un correo electrónico válido.
+  ```php
+    
+     public function edit()
+    {
+        $this->validate();
+
+        $this->contact->save();
+
+        $this->reset('openSlideover');
+        $this->notify(__('Contact email updated successfully!'));
+    }
+    
+
+  ```
   * Notificaciones: Utiliza el trait Notification para mostrar notificaciones al usuario cuando se actualiza el correo electrónico de contacto con éxito.
   * SocialLink.php: Este componente es complementario al componente Contact y se encarga de gestionar los enlaces a tus redes sociales. Aquí están sus características clave:
 
   * Carga de enlaces: El componente carga los enlaces a las redes sociales desde la base de datos y los muestra en la interfaz.
 Creación y edición de enlaces: Permite al usuario crear nuevos enlaces a redes sociales o editar los enlaces existentes. Aplica reglas de validación para asegurarse de que los enlaces sean válidos, incluyendo el formato del icono (utilizando clases de FontAwesome).
   * Eliminación de enlaces: Permite al usuario eliminar enlaces a redes sociales. Cuando se elimina un enlace, se emite un evento que también se escucha en el componente Contact, lo que podría actualizar la información de contacto relacionada con las redes sociales en el futuro.
-  
+  ```php
+    
+     public function create()
+    {
+        if ($this->socialLink->getKey()) {
+            $this->socialLink = new SocialLinkModel();
+            $this->reset('socialLinkSelected');
+        }
+
+        $this->openSlide(true);
+    }
+
+    public function save()
+    {
+        $this->validate();
+
+        $this->socialLink->save();
+
+        $this->reset(['openSlideover', 'socialLinkSelected']);
+
+        $this->notify(__('Social link saved successfully!'));
+    }
+
+    public function deleteSocialLink()
+    {
+        $this->socialLink->delete();
+        $this->reset('socialLinkSelected');
+        $this->notify(__('Social link has been deleted.'), 'deleteMessage');
+    }
+    
+
+  ```
   * **Relación conceptual entre los componentes:**
 
     * Dependencia y comunicación: El componente SocialLink depende del componente Contact en el sentido de que interactúa con la misma información de contacto (correo electrónico). Ambos componentes utilizan el trait Slideover para mostrar un componente emergente en la interfaz. Además, SocialLink emite un evento llamado 'deleteSocialLink' que es escuchado por Contact.
